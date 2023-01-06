@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 html,
 body {
   background-color: #fff;
@@ -9,4 +13,72 @@ body {
     Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smooothing: grayscale;
+}
+
+@layer components {
+  .app {
+    @apply h-screen max-w-[900px] mx-auto flex justify-center items-start px-8 mt-40;
+  }
+
+  .calendar-header {
+    @apply flex mb-10;
+  }
+
+  .title {
+    @apply flex-1 text-lg font-semibold;
+  }
+
+  .buttons {
+    @apply flex gap-4 text-gray-400;
+  }
+
+  .calendar-days {
+    @apply grid grid-cols-7 gap-7 mb-7 text-gray-500 px-4;
+  }
+
+  .day {
+    @apply text-center;
+  }
+
+  .calendar-cell {
+    @apply grid grid-rows-6 gap-3 px-4;
+  }
+
+  .row {
+    @apply grid grid-cols-7 gap-7 pb-4 border-b;
+  }
+  .row:last-child {
+    @apply border-none;
+  }
+
+  .cell {
+    @apply w-8 text-center p-1 rounded-2xl transition-all duration-200 cursor-pointer;
+  }
+  .cell[data-active='true'] {
+    @apply text-red-500;
+  }
+  .cell:hover {
+    @apply text-white bg-black;
+  }
+  .cell[data-active='true']:hover {
+    @apply text-white bg-red-500;
+  }
+
+  .not-current {
+    @apply text-gray-400;
+  }
+
+  @media screen and (min-width: 30rem) {
+    .calendar {
+      @apply pr-14 border-r;
+    }
+
+    .schedule {
+      @apply w-[22rem] pl-14;
+    }
+
+    .schedule-date {
+      @apply text-lg font-semibold;
+    }
+  }
 }
