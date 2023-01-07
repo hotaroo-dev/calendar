@@ -54,13 +54,13 @@ body {
   .cell {
     @apply w-8 text-center p-1 rounded-2xl transition-all duration-200 cursor-pointer;
   }
-  .cell[data-active='true'] {
+  .cell.active {
     @apply text-red-500;
   }
   .cell:hover {
     @apply text-white bg-black;
   }
-  .cell[data-active='true']:hover {
+  .cell.active:hover {
     @apply text-white bg-red-500;
   }
 

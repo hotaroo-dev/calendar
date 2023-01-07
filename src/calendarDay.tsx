@@ -2,15 +2,15 @@ import React from 'react'
 
 interface Props {
   date: Date
-  setDate: React.Dispatch<React.SetStateAction<Date>>
+  selected: Date[]
+  setSelected: React.Dispatch<React.SetStateAction<Date[]>>
 }
 
 const offset = 7
 
-const CalenderDay: React.FC<Props> = ({ date, setDate }) => {
+const CalenderDay: React.FC<Props> = ({ date, selected, setSelected }) => {
   const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1)
   const weekDayOfFristDay = firstDayOfMonth.getDay()
-
   const cells = [...Array(42)].map((_, i) => {
     firstDayOfMonth.setDate(
       i === 0
@@ -25,10 +25,13 @@ const CalenderDay: React.FC<Props> = ({ date, setDate }) => {
     }
   })
 
-  const toggleActive = (e: React.MouseEvent) => {
-    const toggle =
-      e.currentTarget.getAttribute('data-active') === 'true' ? true : false
-    e.currentTarget.setAttribute('data-active', String(!toggle))
+  const toggleActive = (e: React.MouseEvent, date: Date) => {
+    const toggle = e.currentTarget.classList.contains('active')
+    setSelected(selected =>
+      !toggle
+        ? [...selected, date]
+        : selected.filter(current => current.getDate() !== date.getDate())
+    )
   }
 
   return (
@@ -37,11 +40,18 @@ const CalenderDay: React.FC<Props> = ({ date, setDate }) => {
         <div key={i} className="row">
           {cells.slice(offset * i, offset * i + offset).map((cell, id) => (
             <span
-              className={`cell ${!cell.currentMonth ? 'not-current' : ''}`}
+              className={`cell${!cell.currentMonth ? ' not-current' : ''}${
+                selected.find(
+                  s =>
+                    s.getDate() === cell.date.getDate() &&
+                    s.getMonth() === cell.date.getMonth()
+                )
+                  ? ' active'
+                  : ''
+              }`}
               key={id}
               onClick={e => {
-                setDate(cell.date)
-                toggleActive(e)
+                toggleActive(e, cell.date)
               }}
             >
               {cell.date.getDate()}
