@@ -1,20 +1,18 @@
 import React from 'react'
-import CalenderDay from './calendarDay'
+import { useRecoilState } from 'recoil'
+import { AnimatePresence, motion } from 'framer-motion'
+import { dateState } from './atom'
 import { months, weekdays } from './date'
+import CalenderDay from './calendarDay'
 
-interface Props {
-  date: Date
-  setDate: React.Dispatch<React.SetStateAction<Date>>
-  selected: Date[]
-  setSelected: React.Dispatch<React.SetStateAction<Date[]>>
+export const calendarVariants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1 }
 }
 
-const Calendar: React.FC<Props> = ({
-  date,
-  setDate,
-  selected,
-  setSelected
-}) => {
+const Calendar: React.FC = () => {
+  const [date, setDate] = useRecoilState(dateState)
+
   const nextMonth = () => {
     date.setMonth(date.getMonth() + 1)
     setDate(new Date(date))
@@ -26,29 +24,39 @@ const Calendar: React.FC<Props> = ({
   }
 
   return (
-    <div className="calendar">
-      <div className="calendar-header">
-        <span className="title">
-          {months[date.getMonth()]} {date.getFullYear()}
-        </span>
-        <div className="buttons">
-          <button onClick={prevMonth}>
-            <Before />
-          </button>
-          <button onClick={nextMonth}>
-            <Next />
-          </button>
-        </div>
-      </div>
-      <div className="calendar-days">
-        {weekdays.map((day, i) => (
-          <span className="day" key={i}>
-            {day}
+    <AnimatePresence mode="wait" initial={false}>
+      <motion.div
+        className="calendar"
+        key={date.getMonth()}
+        variants={calendarVariants}
+        initial="hidden"
+        animate="visible"
+        exit="hidden"
+        transition={{ type: 'spring', stiffness: 50, duration: 0.2 }}
+      >
+        <div className="calendar-header">
+          <span className="title">
+            {months[date.getMonth()]} {date.getFullYear()}
           </span>
-        ))}
-      </div>
-      <CalenderDay date={date} selected={selected} setSelected={setSelected} />
-    </div>
+          <div className="buttons">
+            <button onClick={prevMonth}>
+              <Before />
+            </button>
+            <button onClick={nextMonth}>
+              <Next />
+            </button>
+          </div>
+        </div>
+        <div className="calendar-days">
+          {weekdays.map((day, i) => (
+            <span className="day" key={i}>
+              {day}
+            </span>
+          ))}
+        </div>
+        <CalenderDay />
+      </motion.div>
+    </AnimatePresence>
   )
 }
 

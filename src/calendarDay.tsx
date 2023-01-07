@@ -1,29 +1,30 @@
 import React from 'react'
-
-interface Props {
-  date: Date
-  selected: Date[]
-  setSelected: React.Dispatch<React.SetStateAction<Date[]>>
-}
+import { useRecoilState, useRecoilValue } from 'recoil'
+import { dateState, selectedState } from './atom'
 
 const offset = 7
 
-const CalenderDay: React.FC<Props> = ({ date, selected, setSelected }) => {
-  const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1)
-  const weekDayOfFristDay = firstDayOfMonth.getDay()
-  const cells = [...Array(42)].map((_, i) => {
-    firstDayOfMonth.setDate(
-      i === 0
-        ? firstDayOfMonth.getDate() -
-            (weekDayOfFristDay ? weekDayOfFristDay : 7)
-        : firstDayOfMonth.getDate() + 1
-    )
+const CalenderDay: React.FC = () => {
+  const date = useRecoilValue(dateState)
+  const [selected, setSelected] = useRecoilState(selectedState)
+  const cells = (() => {
+    const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1)
+    const weekDayOfFristDay = firstDayOfMonth.getDay()
 
-    return {
-      date: new Date(firstDayOfMonth),
-      currentMonth: firstDayOfMonth.getMonth() === date.getMonth()
-    }
-  })
+    return [...Array(42)].map((_, i) => {
+      firstDayOfMonth.setDate(
+        i === 0
+          ? firstDayOfMonth.getDate() -
+              (weekDayOfFristDay ? weekDayOfFristDay : 7)
+          : firstDayOfMonth.getDate() + 1
+      )
+
+      return {
+        date: new Date(firstDayOfMonth),
+        currentMonth: firstDayOfMonth.getMonth() === date.getMonth()
+      }
+    })
+  })()
 
   const toggleActive = (e: React.MouseEvent, date: Date) => {
     const toggle = e.currentTarget.classList.contains('active')
@@ -35,7 +36,7 @@ const CalenderDay: React.FC<Props> = ({ date, selected, setSelected }) => {
   }
 
   return (
-    <div className="calendar-cell">
+    <div>
       {[...Array(6)].map((_, i) => (
         <div key={i} className="row">
           {cells.slice(offset * i, offset * i + offset).map((cell, id) => (
