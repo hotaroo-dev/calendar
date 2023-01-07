@@ -17,7 +17,7 @@ body {
 
 @layer components {
   .app {
-    @apply h-screen max-w-[900px] mx-auto flex justify-center items-start px-8 mt-40;
+    @apply h-screen max-w-[900px] mx-auto flex justify-center items-start px-8 pt-40;
   }
 
   .calendar-header {
