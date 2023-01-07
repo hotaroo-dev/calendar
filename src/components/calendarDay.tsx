@@ -1,6 +1,6 @@
 import React from 'react'
 import { useRecoilState, useRecoilValue } from 'recoil'
-import { dateState, selectedState } from './atom'
+import { dateState, selectedState } from '../atom'
 
 const offset = 7
 

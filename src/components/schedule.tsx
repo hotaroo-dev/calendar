@@ -1,9 +1,9 @@
 import React from 'react'
 import { useRecoilValue } from 'recoil'
 import { AnimatePresence, motion } from 'framer-motion'
-import { dateState, selectedState } from './atom'
+import { dateState, selectedState } from '../atom'
 import { calendarVariants } from './calendar'
-import { months } from './date'
+import { months } from '../date'
 
 const Schedule: React.FC = () => {
   const date = useRecoilValue(dateState)

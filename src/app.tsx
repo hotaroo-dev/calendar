@@ -1,6 +1,6 @@
 import React from 'react'
-import Calendar from './calendar'
-import Schedule from './schedule'
+import Calendar from './components/calendar'
+import Schedule from './components/schedule'
 
 const App: React.FC = () => {
   return (

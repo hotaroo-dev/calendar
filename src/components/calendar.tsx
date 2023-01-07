@@ -1,8 +1,8 @@
 import React from 'react'
 import { useRecoilState } from 'recoil'
 import { AnimatePresence, motion } from 'framer-motion'
-import { dateState } from './atom'
-import { months, weekdays } from './date'
+import { dateState } from '../atom'
+import { months, weekdays } from '../date'
 import CalenderDay from './calendarDay'
 
 export const calendarVariants = {
