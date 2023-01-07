@@ -36,7 +36,7 @@ const CalenderDay: React.FC = () => {
   }
 
   return (
-    <div>
+    <div className="calendar-cell">
       {[...Array(6)].map((_, i) => (
         <div key={i} className="row">
           {cells.slice(offset * i, offset * i + offset).map((cell, id) => (
