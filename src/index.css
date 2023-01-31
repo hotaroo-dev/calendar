@@ -17,11 +17,11 @@ body {
 
 @layer components {
   .app {
-    @apply h-screen max-w-[900px] mx-auto flex flex-col justify-center items-center px-6 pt-40;
+    @apply h-screen max-w-[900px] mx-auto flex flex-col justify-center items-center px-6 pt-40 md:flex-row md:items-start;
   }
 
   .calendar {
-    @apply flex-1 order-1;
+    @apply flex-1 order-1 md:pr-14 md:border-r;
   }
 
   .calendar-header {
@@ -73,28 +73,10 @@ body {
   }
 
   .schedule {
-    @apply w-[22rem];
+    @apply w-[22rem] md:order-1 md:pl-14;
   }
 
   .schedule-date {
-    @apply text-center text-lg font-semibold mb-8;
-  }
-
-  @media screen and (min-width: 48rem) {
-    .app {
-      @apply flex-row items-start;
-    }
-
-    .calendar {
-      @apply pr-14 border-r;
-    }
-
-    .schedule {
-      @apply order-1 pl-14;
-    }
-
-    .schedule-date {
-      @apply text-start;
-    }
+    @apply text-center md:text-start text-lg font-semibold mb-8;
   }
 }
