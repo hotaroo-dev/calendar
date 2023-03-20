@@ -17,11 +17,11 @@ body {
 
 @layer components {
   .app {
-    @apply h-screen max-w-[900px] mx-auto flex flex-col justify-center items-center px-6 pt-40 md:flex-row md:items-start;
+    @apply h-screen max-w-[900px] mx-auto flex flex-col justify-center items-center px-6 md:flex-row;
   }
 
   .calendar {
-    @apply flex-1 order-1 md:pr-14 md:border-r;
+    @apply md:flex-1 order-1 md:pr-14 md:border-r;
   }
 
   .calendar-header {
